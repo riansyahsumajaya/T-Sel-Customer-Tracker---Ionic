@@ -26,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('signin', {
       url: '/sign-in',
       templateUrl: 'sign-in.html',
-      controller: 'SignInCtrl'
+      controller: 'loginCtrl'
     })
 	
     .state('tab', {

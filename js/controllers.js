@@ -25,11 +25,33 @@ angular.module('starter.controllers', [])
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('SignInCtrl', function($scope, $state) {
-  
-  $scope.signIn = function(user) {
-    console.log('Sign-In', user);
-    $state.go('tab.dash');
-  };
-  
+.controller('loginCtrl', function($state,$scope,$http,$ionicPopup,$ionicLoading) {
+		$scope.user = {};  //declares the object user
+		
+		$scope.login = function() {
+			str="http://pesananku.16mb.com/telkomsel/php/loginWeb.php?ID="+$scope.user.ID+"&PASSWORD="+$scope.user.PASSWORD;
+			$ionicLoading.show();
+			$http.get(str)
+			.success(function (response){   // if login request is Accepted
+						if (response.error == false) { 
+						$ionicLoading.hide(); 
+						$state.go('tab.dash');}	
+						else {
+							$ionicLoading.hide();
+							var alertPopup = $ionicPopup.alert({
+						title: 'Login failed!',
+						template: 'Please check your credentials!'
+					});
+							
+						}
+			}).error(function() {   						//if login failed
+					var alertPopup = $ionicPopup.alert({
+						title: 'Login failed!',
+						template: 'Please check your credentials!'
+					});
+			});
+		};
+		
 })
+
+
